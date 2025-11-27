@@ -150,7 +150,7 @@ We'll test different mics, see what works. Worst case, these pocket recorders ar
 
 Now the privacy part got me thinking. Initially thought maybe we'd mask sensitive stuff - passwords, PINs, whatever. But if we start masking normal conversations, aren't we defeating the purpose? The whole idea is to capture context from regular life.
 
-Then we realized, this is open source. People deploy it for themselves. It's YOUR data, YOUR infrastructure. Like... it's basically a journal, right? People write personal journals all the time. They don't encrypt every other word because someone might read it. It's private by default because it's yours.
+Then I realized, this is open source. People deploy it for themselves. It's YOUR data, YOUR infrastructure. Like... it's basically a journal, right? People write personal journals all the time. They don't encrypt every other word because someone might read it. It's private by default because it's yours.
 
 The goal isn't to prove what someone said or use recordings against anyone. It's personal memory augmentation for yourself only. You're not building evidence, you're building context for your own AI to understand you better.
 

@@ -19,6 +19,10 @@ import os
 import tempfile
 import json
 from azure.storage.blob import BlobServiceClient
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (local development)
+load_dotenv()
 
 from transcribe import init_whisper_model, transcribe_chunk_file
 

@@ -15,6 +15,11 @@ import psycopg2
 from psycopg2 import pool
 import os
 import json
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (local development)
+# Azure will use its own environment variables (set in portal)
+load_dotenv()
 
 # Global connection pool (initialized on startup)
 db_pool = None

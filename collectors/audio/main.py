@@ -19,6 +19,10 @@ import os
 import uuid
 import tempfile
 from azure.storage.blob import BlobServiceClient
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (local development)
+load_dotenv()
 
 from chunking import make_chunks_with_overlap, get_audio_duration
 

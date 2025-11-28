@@ -4,3 +4,4 @@ psycopg2-binary==2.9.9
 azure-storage-blob==12.19.0
 faster-whisper==1.0.0
 torch==2.1.0
+python-dotenv

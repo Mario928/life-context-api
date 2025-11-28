@@ -1,3 +1,6 @@
+# Environment variables with credentials
+.env
+
 # Azure Setup Guide (contains sensitive credentials)
 AZURE_SETUP_BEGINNER_GUIDE.md
 

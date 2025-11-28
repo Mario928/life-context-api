@@ -1,10 +1,8 @@
-# Use official Python 3.11 slim image
-FROM python:3.11-slim
+# Use official Python 3.11 full image (includes GCC/build tools)
+FROM python:3.11
 
-# Install system dependencies including FFmpeg
+# Install system dependencies including FFmpeg and development headers for PyAV
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3-dev \
     ffmpeg \
     libavcodec-dev \
     libavformat-dev \

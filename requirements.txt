@@ -1,9 +1,7 @@
-azure-storage-blob==12.19.0
 fastapi==0.104.1
-faster-whisper==1.0.0
+uvicorn[standard]==0.24.0
 psycopg2-binary==2.9.9
 pydub==0.25.1
-python-dotenv
+azure-storage-blob==12.19.0
 python-multipart==0.0.6
-torch==2.1.0
-uvicorn[standard]==0.24.0
+python-dotenv

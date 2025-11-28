@@ -1,14 +1,13 @@
-# Core dependencies for all APIs
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 psycopg2-binary==2.9.9
 python-dotenv
 python-multipart==0.0.6
-
-# Audio API specific
+# Azure Storage
 azure-storage-blob==12.19.0
 pydub==0.25.1
 
-# Whisper API specific (now works with Docker FFmpeg!)
-torch==2.1.0
-faster-whisper==1.0.0
+# Whisper dependencies - COMMENTED OUT for standard Azure deployment
+# (Requires Docker/FFmpeg which is not available in standard App Service)
+# torch==2.1.0
+# faster-whisper==1.0.0

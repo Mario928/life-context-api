@@ -1,6 +1,6 @@
-# Build and deploy Python app to Azure Web App - life-context-audio-upload
+# Build and deploy Docker container to Azure Web App - life-context-audio-upload
 
-name: Build and deploy Python app to Azure Web App - life-context-audio-upload
+name: Build and deploy Docker container to Azure Web App
 
 on:
   push:
@@ -8,35 +8,36 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AZURE_WEBAPP_NAME: life-context-audio-upload
+  
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
-        uses: actions/setup-python@v5
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to registry
+        uses: docker/login-action@v3
         with:
-          python-version: '3.11'
+          registry: https://index.docker.io/v1/
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-
-      - name: Upload artifact for deployment jobs
-        uses: actions/upload-artifact@v4
-          name: python-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+      - name: Build and push container image
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: index.docker.io/${{ secrets.DOCKER_USERNAME }}/life-context-api:${{ github.sha }}
+          file: ./Dockerfile
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -45,9 +46,8 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B181C6349347428582B3F2CB9E8BEFE0 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_12CC5E92BB594453B93C21B97E766823 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'life-context-audio-upload'
-          slot-name: 'Production'
-          package: .
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          images: 'index.docker.io/${{ secrets.DOCKER_USERNAME }}/life-context-api:${{ github.sha }}'

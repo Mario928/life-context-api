@@ -7,7 +7,6 @@ python-multipart==0.0.6
 azure-storage-blob==12.19.0
 pydub==0.25.1
 
-# Whisper dependencies - COMMENTED OUT for standard Azure deployment
-# (Requires Docker/FFmpeg which is not available in standard App Service)
-# torch==2.1.0
-# faster-whisper==1.0.0
+# Whisper dependencies
+torch==2.1.0
+faster-whisper==1.0.0

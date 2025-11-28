@@ -8,14 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Import individual API apps
 from collectors.gps.main import app as gps_app
 from collectors.audio.main import app as audio_app
-
-# Try to import Whisper, but allow failure if dependencies (FFmpeg) are missing
-try:
-    from processors.whisper.main import app as whisper_app
-    whisper_available = True
-except ImportError:
-    whisper_app = None
-    whisper_available = False
+from processors.whisper.main import app as whisper_app
 
 # Create main application
 app = FastAPI(
@@ -34,38 +27,28 @@ app.add_middleware(
 )
 
 # Mount all three APIs
-# Mount all three APIs
 app.mount("/gps", gps_app)
 app.mount("/audio", audio_app)
-if whisper_available:
-    app.mount("/whisper", whisper_app)
+app.mount("/whisper", whisper_app)
 
 @app.get("/")
 async def root():
     """Root endpoint - shows all available APIs"""
-    apis = {
-        "gps": "/gps - GPS data collection and tracking",
-        "audio": "/audio - Audio file upload and chunking"
-    }
-    
-    health_checks = {
-        "gps": "/gps/",
-        "audio": "/audio/"
-    }
-
-    if whisper_available:
-        apis["whisper"] = "/whisper - Audio transcription processing"
-        health_checks["whisper"] = "/whisper/"
-    else:
-        apis["whisper"] = "Unavailable (FFmpeg/Dependencies missing)"
-
     return {
         "service": "Life Context API",
         "status": "running",
-        "deployment": "Standard Python (GPS+Audio only)" if not whisper_available else "Docker container with FFmpeg",
-        "apis": apis,
+        "deployment": "Docker container with FFmpeg",
+        "apis": {
+            "gps": "/gps - GPS data collection and tracking",
+            "audio": "/audio - Audio file upload and chunking", 
+            "whisper": "/whisper - Audio transcription processing"
+        },
         "docs": "/docs",
-        "health_checks": health_checks
+        "health_checks": {
+            "gps": "/gps/",
+            "audio": "/audio/",
+            "whisper": "/whisper/"
+        }
     }
 
 @app.get("/health")

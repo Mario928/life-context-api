@@ -3,6 +3,8 @@ FROM python:3.11-slim
 
 # Install system dependencies including FFmpeg
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
     ffmpeg \
     libavcodec-dev \
     libavformat-dev \

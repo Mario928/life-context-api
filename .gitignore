@@ -1,8 +1,8 @@
 # Environment variables with credentials
 .env
+AZURE_SETUP_BEGINNER_GUIDE.md
 
 # Azure Setup Guide (contains sensitive credentials)
-AZURE_SETUP_BEGINNER_GUIDE.md
 
 # Python
 __pycache__/

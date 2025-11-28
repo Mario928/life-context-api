@@ -25,7 +25,7 @@ def init_db_pool():
     global db_pool
     db_url = os.environ.get(
         'DATABASE_URL', 
-        'postgresql://user:password@localhost:5432/life_context'
+        'postgresql://user:password@localhost:5432/lifecontext_db'  # Set DATABASE_URL in Azure environment variables
     )
     db_pool = psycopg2.pool.SimpleConnectionPool(1, 10, db_url)
 

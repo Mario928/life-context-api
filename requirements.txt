@@ -7,6 +7,6 @@ python-multipart==0.0.6
 azure-storage-blob==12.19.0
 pydub==0.25.1
 
-# Whisper dependencies
+# Whisper dependencies (updated for FFmpeg 7.x compatibility)
 torch==2.1.0
-faster-whisper==1.0.0
+faster-whisper==1.1.1
